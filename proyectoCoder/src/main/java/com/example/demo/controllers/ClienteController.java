@@ -17,7 +17,11 @@ public class ClienteController {
 
     @PostMapping("/client/create")
     public ResponseEntity<?> createClient(@RequestBody ClientEntity client){
-        return ResponseEntity.status(HttpStatus.CREATED).body(clientService.crear(client));
+        try{
+            return ResponseEntity.status(HttpStatus.CREATED).body(clientService.crear(client));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @GetMapping("/client/findClients")
@@ -25,4 +29,13 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.OK).body(clientService.clientes());
     }
 
+    @GetMapping("client/{id}")
+    public ResponseEntity<?> client(@PathVariable long id){
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.buscarPorId(id));
+    }
+
+    @GetMapping("/client/edad/{id}")
+    public ResponseEntity<?> getYears(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(clientService.getYears(id));
+    }
 }
