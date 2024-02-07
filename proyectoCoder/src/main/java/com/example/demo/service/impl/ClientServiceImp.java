@@ -44,6 +44,20 @@ public class ClientServiceImp implements ClientService {
     }
 
     @Override
+    public ClientEntity modifyClient(ClientEntity client, Long id) {
+        Optional<ClientEntity> clientRepo = clientRepository.findById(id);
+        if(clientRepo.isPresent()){
+            ClientEntity clientDB = clientRepo.get();
+            clientDB.setEmail(client.getEmail());
+            clientDB.setNombre(client.getNombre());
+            clientDB.setApellido(client.getApellido());
+            clientDB.setFechaNacimiento(client.getFechaNacimiento());
+            return clientRepository.save(clientDB);
+        }
+        return null;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public ClientDto getYears(Long id) {
         Date fechaActual = new Date();

@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.modal.ClientEntity;
 import com.example.demo.modal.dto.ClientDto;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +16,7 @@ public interface ClientService {
 
     void eliminarCliente(Long id);
 
+    ClientEntity modifyClient(ClientEntity client, Long id);
 
     ClientDto getYears(Long id);
 }
