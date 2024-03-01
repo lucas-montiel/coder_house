@@ -1,16 +1,16 @@
 package com.example.demo.modal;
 
+import com.example.demo.modal.dto.ProductRequest;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name = "Sale")
+@Table(name = "sale")
 @Getter
 @Setter
 public class SaleEntity {
@@ -29,10 +29,11 @@ public class SaleEntity {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "product_sale", joinColumns = @JoinColumn(name = "sale_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<ProductEntity> products = new HashSet<>();
+    @JsonManagedReference
+    private List<ProductEntity> products;
 
     @Column
-    private int totalVenta;
+    private Double totalVenta;
 
 
 

@@ -1,11 +1,11 @@
 package com.example.demo.modal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name="product")
@@ -23,8 +23,9 @@ public class ProductEntity {
     private String nombre;
 
     @ManyToMany(mappedBy = "products")
-    private Set<SaleEntity> sale = new HashSet<>();
+    @JsonIgnore
+    private List<SaleEntity> sale;
 
     @Column
-    private Float price;
+    private Double price;
 }

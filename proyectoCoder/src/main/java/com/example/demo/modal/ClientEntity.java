@@ -1,5 +1,7 @@
 package com.example.demo.modal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,6 +30,7 @@ public class ClientEntity {
     @Column
     private Date fechaNacimiento;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="client")
     private List<SaleEntity> ventas;
 }
